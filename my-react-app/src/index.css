@@ -18,15 +18,14 @@ body {
 
 body:has(.Task-edit.is-visible) {
   margin: 0;
-  
 }
 
-.mrg-l-4{
+.mrg-l-4 {
   margin-right: 10px;
 }
 
 #root {
-    padding-top: 110px;
+  padding-top: 110px;
   padding-bottom: 110px;
 }
 
@@ -60,7 +59,7 @@ Utility classes
 =========================================
 */
 
-.pad-4{
+.pad-4 {
   padding: 1px;
 }
 
@@ -242,8 +241,9 @@ Side nav
 
 .side-nav button {
   display: none;
-  background: linear-gradient(#123b43, #1d6870),
-              linear-gradient(35deg, #ff6b4a, #ffc857, #f08a5d);
+  background:
+    linear-gradient(#123b43, #1d6870),
+    linear-gradient(35deg, #ff6b4a, #ffc857, #f08a5d);
   z-index: 99;
   position: absolute;
   border: 2px solid transparent;
@@ -269,7 +269,6 @@ Side nav
 .side-nav main {
   height: 50%;
 }
-
 
 /*
 =========================================
@@ -343,8 +342,14 @@ Top nav / header
 
 .double-header-mega {
   position: absolute;
-  background: linear-gradient(#3f3e3e, #3f3e3e),
-              linear-gradient(25deg, rgba(75, 29, 29, 0.877), rgb(87, 1, 1), rgb(37, 0, 0));
+  background:
+    linear-gradient(#3f3e3e, #3f3e3e),
+    linear-gradient(
+      25deg,
+      rgba(75, 29, 29, 0.877),
+      rgb(87, 1, 1),
+      rgb(37, 0, 0)
+    );
   border: 2px solid transparent;
   color: white;
   width: 100%;
@@ -379,7 +384,6 @@ Top nav / header
 .double-header-mega i:hover {
   color: rgb(177, 166, 166);
 }
-
 
 /*
 =========================================
@@ -457,7 +461,9 @@ Bottom nav
   border-radius: 10px;
   color: rgb(107, 105, 107);
   text-align: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .bottom-nav__item i {
@@ -482,7 +488,6 @@ Bottom nav
   color: rgb(16, 115, 96);
 }
 
-
 /*
 =========================================
 New task modal
@@ -504,7 +509,7 @@ New task modal
   visibility: visible;
   pointer-events: auto;
 }
-
+.input-feild,
 .new-task .input-feild {
   position: absolute;
   opacity: 0;
@@ -583,7 +588,11 @@ Group and task cards
 */
 
 .group-header {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(239, 246, 255, 0.9));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(239, 246, 255, 0.9)
+  );
   border: 1px solid rgba(148, 163, 184, 0.35);
   border-bottom: none;
   border-radius: 18px 18px 0 0;
@@ -615,7 +624,9 @@ Group and task cards
   overflow: hidden;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .Task:hover {
@@ -664,7 +675,7 @@ Group and task cards
   text-transform: uppercase;
 }
 
-.task-type-badge.Completed{
+.task-type-badge.Completed {
   background: rgba(94, 234, 212, 0.18);
   color: #0f766e;
 }
@@ -723,11 +734,9 @@ Group and task cards
   color: #334155;
 }
 
-
-
 /*TAsk edit*/
 
-.Task-edit{
+.Task-edit {
   position: fixed;
   inset: 0;
   display: flex;
@@ -735,7 +744,9 @@ Group and task cards
   justify-content: center;
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(2px);
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
@@ -743,7 +754,7 @@ Group and task cards
   color: black;
 }
 
-.Task-edit.is-visible{
+.Task-edit.is-visible {
   opacity: 1;
   visibility: visible;
 }
@@ -760,11 +771,13 @@ Group and task cards
   padding: 20px 18px 18px;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
   transform: translateY(112px);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
   opacity: 0;
 }
 
-.Task-edit.is-visible .Task-edit__panel{
+.Task-edit.is-visible .Task-edit__panel {
   transform: translateY(0);
   opacity: 1;
 }
@@ -838,15 +851,14 @@ Group and task cards
   cursor: pointer;
 }
 
-button.Task-edit__save{
+button.Task-edit__save {
   background: linear-gradient(119.43deg, #4ff393, #04eb3d) !important;
 }
 
-.Task-edit button:hover{
-    transform: translateY(-2px);
-    opacity: 0.9;
+.Task-edit button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
-
 
 .workspace {
   --space-ink: #17312e;
@@ -1170,7 +1182,10 @@ button.Task-edit__save{
   height: 18px;
 }
 
-.task-complete-toggle .toggle-checkbox:checked + .toggle-label .toggle-inner-button {
+.task-complete-toggle
+  .toggle-checkbox:checked
+  + .toggle-label
+  .toggle-inner-button {
   transform: translateX(18px);
 }
 
@@ -1301,13 +1316,11 @@ Responsive tweaks
 
   .Task {
     width: min(100%, 440px);
-
-
   }
 }
 
-@media (max-width: 300px){
-  .cut{
+@media (max-width: 300px) {
+  .cut {
     display: none;
   }
 }
@@ -1322,7 +1335,9 @@ Responsive tweaks
   background: transparent;
   color: inherit;
   font-size: 17px;
-  transition: background-color 160ms ease, color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .theme-toggle:hover {
