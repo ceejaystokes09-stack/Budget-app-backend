@@ -267,3 +267,12 @@ body:has(.auth-page) {
     transition: none;
   }
 }
+
+.error-conc {
+  text-align: center;
+  background-color: rgba(248, 112, 112, 0.716);
+  border-radius: 1em;
+  border: solid 1px red;
+  padding: 2px;
+  color: rgb(63, 59, 59);
+}

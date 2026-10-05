@@ -1,19 +1,48 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../index.css";
 import "../auth.css";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   function changeMode(nextIsLogin) {
     setIsLogin(nextIsLogin);
     setMessage("");
   }
 
-  function handleLogin() {
-    console.log("later");
+  async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById("auth-email").value;
+    const password = document.getElementById("auth-password").value;
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.Status === "Success") {
+          navigate("/");
+          return;
+        }
+
+        setError(data.Error);
+      } else {
+        console.error("the data is not ok from flask.");
+      }
+    } catch (error) {
+      console.error("Error fetching or sending data to BAckedn", error);
+    }
   }
 
   async function handleCreate(event) {
@@ -22,7 +51,7 @@ export default function Login() {
     const email = document.getElementById("auth-email").value;
     const password = document.getElementById("auth-password").value;
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/auth/create-acc", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +63,12 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log(response);
+        if (data.Status === "Success") {
+          navigate("/");
+          return;
+        }
+
+        setError(data.Error);
       } else {
         console.error("the data is not ok from flask.");
       }
@@ -42,23 +76,6 @@ export default function Login() {
       console.error("Error fetching or sending data to BAckedn", error);
     }
   }
-  //   fetch("/api/auth/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-
-  //     body: JSON.stringify({ name, email, password }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((err) => console.error("Error during authentication flow:", err));
-  //   setMessage(
-  //     "Authentication is not connected yet. Your details have not been sent.",
-  //   );
-  // }
 
   return (
     <main className="auth-page">
@@ -104,7 +121,6 @@ export default function Login() {
               Create account
             </button>
           </div>
-
           <h2 id="auth-title">
             {isLogin ? "Welcome back" : "Start with a plan"}
           </h2>
@@ -118,6 +134,11 @@ export default function Login() {
             className="auth-form"
             onSubmit={isLogin ? handleLogin : handleCreate}
           >
+            {error && (
+              <div className="error-conc">
+                <p>{error}</p>
+              </div>
+            )}
             {!isLogin && (
               <label className="auth-field" htmlFor="auth-name">
                 <span>Your name</span>
