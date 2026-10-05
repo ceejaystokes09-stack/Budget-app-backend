@@ -12,10 +12,12 @@ export default function Login() {
   function changeMode(nextIsLogin) {
     setIsLogin(nextIsLogin);
     setMessage("");
+    setError("");
   }
 
   async function handleLogin(event) {
     event.preventDefault();
+    setError("");
     const email = document.getElementById("auth-email").value;
     const password = document.getElementById("auth-password").value;
     try {
@@ -38,15 +40,17 @@ export default function Login() {
 
         setError(data.Error);
       } else {
-        console.error("the data is not ok from flask.");
+        setError(data.Error || `Sign in failed (${response.status}).`);
       }
     } catch (error) {
       console.error("Error fetching or sending data to BAckedn", error);
+      setError("Could not reach the server. Please try again.");
     }
   }
 
   async function handleCreate(event) {
     event.preventDefault();
+    setError("");
     const name = document.getElementById("auth-name").value;
     const email = document.getElementById("auth-email").value;
     const password = document.getElementById("auth-password").value;
@@ -70,10 +74,11 @@ export default function Login() {
 
         setError(data.Error);
       } else {
-        console.error("the data is not ok from flask.");
+        setError(data.Error || `Account creation failed (${response.status}).`);
       }
     } catch (error) {
       console.error("Error fetching or sending data to BAckedn", error);
+      setError("Could not reach the server. Please try again.");
     }
   }
 
@@ -135,7 +140,7 @@ export default function Login() {
             onSubmit={isLogin ? handleLogin : handleCreate}
           >
             {error && (
-              <div className="error-conc">
+              <div className="error-conc" role="alert">
                 <p>{error}</p>
               </div>
             )}

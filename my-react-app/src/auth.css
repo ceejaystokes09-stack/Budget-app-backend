@@ -269,10 +269,15 @@ body:has(.auth-page) {
 }
 
 .error-conc {
-  text-align: center;
-  background-color: rgba(248, 112, 112, 0.716);
-  border-radius: 1em;
-  border: solid 1px red;
-  padding: 2px;
-  color: rgb(63, 59, 59);
+  padding: 11px 13px;
+  border-left: 3px solid #a83b32;
+  border-radius: 4px;
+  color: #702b26;
+  background: #f8e9e4;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.error-conc p {
+  margin: 0;
 }
