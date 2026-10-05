@@ -16,29 +16,49 @@ export default function Login() {
     console.log("later");
   }
 
-  function handleCreate(event) {
+  async function handleCreate(event) {
     event.preventDefault();
-    fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const name = document.getElementById("auth-name").value;
+    const email = document.getElementById("auth-email").value;
+    const password = document.getElementById("auth-password").value;
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        name: document.getElementById("auth-name"),
-        email: document.getElementById("auth-email"),
-        password: document.getElementById("auth-password"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => console.error("Error during authentication flow:", err));
-    setMessage(
-      "Authentication is not connected yet. Your details have not been sent.",
-    );
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.error("the data is not ok from flask.");
+      }
+    } catch (error) {
+      console.error("Error fetching or sending data to BAckedn", error);
+    }
   }
+  //   fetch("/api/auth/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+
+  //     body: JSON.stringify({ name, email, password }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => console.error("Error during authentication flow:", err));
+  //   setMessage(
+  //     "Authentication is not connected yet. Your details have not been sent.",
+  //   );
+  // }
 
   return (
     <main className="auth-page">
