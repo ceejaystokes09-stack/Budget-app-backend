@@ -1,7 +1,7 @@
 import "../index.css";
 import { useNavigate } from "react-router-dom";
 
-function Header({ isDark, onToggleTheme }) {
+function Header({ isDark, onToggleTheme, user_data }) {
   const navigate = useNavigate();
   return (
     <>
@@ -35,7 +35,7 @@ function Header({ isDark, onToggleTheme }) {
             }}
           >
             <span className="fa-solid fa-circle-user"></span>
-            <span className="cut">Sign in</span>
+            {!user_data.name && <span className="cut">Sign in</span>}
           </i>
         </div>
       </div>

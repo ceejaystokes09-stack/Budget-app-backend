@@ -1,19 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from back_end_ import backend
 
 app = Flask(__name__, template_folder="my-react-app")
-
+app.secret_key = "idonkenkwff wffwfwgg erge er-ger -eg=e egker eg ee gerg nerg ergerg ergere fwe =gegerger oerg-rwg er=ger= g"
 
 def GenId():
     import uuid
     return str(uuid.uuid1())
-
-
-
-
-
-
-
 
 @app.after_request
 def add_cors_headers(response):
@@ -50,6 +43,8 @@ def login_acc():
     )
     
     if (db.verify_user(email_column="EMAIL", password_column="PASS")):
+        session["Name"] = db.get_data_("NAME","EMAIL",email)
+        session["Email"]=email
         return jsonify({"Status": "Success"}), 200
     
     else: 
@@ -61,6 +56,11 @@ def login_acc():
 @app.route("/api/auth/create-acc", methods=["OPTIONS"])
 def handle_preflight():
     return "", 204
+
+
+@app.post("/api/details/user-details")
+def send_usersdetails():
+    return jsonify({"name": session.get("Name") or "Guest", "email": session.get("Email") or "guest"})
 
 
 @app.post("/api/auth/create-acc")
@@ -108,7 +108,8 @@ def create_account():
         return jsonify(
             {"Status": "Error", "Error": "Could not save the account."}
         ),201
-
+    session["Email"]=email
+    session["Name"] = name
     return jsonify(
         {"Status": "Success"}
     ), 201
