@@ -1340,6 +1340,32 @@ Responsive tweaks
     color 160ms ease;
 }
 
+.header-user-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.header-user-icon,
+.header-username {
+  display: block;
+  line-height: 1;
+}
+
+.header-username {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .theme-toggle:hover {
   background: rgba(24, 115, 95, 0.12);
   color: #18735f;

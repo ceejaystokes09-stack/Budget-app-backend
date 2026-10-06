@@ -34,11 +34,12 @@ def login_acc():
         return jsonify(
             {"Status": "Error", "Error": "Name, email, and password are required."}
         ), 201
+    email = email.strip().lower()
     db = backend(
         db_file_name="DATA.db",
         table_name="Users",
         db_folder_name="Festival-data",
-        EMAIL=email.strip().lower(),
+        EMAIL=email,
         PASS=password,
     )
     
@@ -58,9 +59,13 @@ def handle_preflight():
     return "", 204
 
 
-@app.post("/api/details/user-details")
+@app.get("/api/details/user-details")
 def send_usersdetails():
-    return jsonify({"name": session.get("Name") or "Guest", "email": session.get("Email") or "guest"})
+    response = jsonify(
+        {"name": session.get("Name") or "Guest", "email": session.get("Email") or "guest"}
+    )
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.post("/api/auth/create-acc")
@@ -108,8 +113,8 @@ def create_account():
         return jsonify(
             {"Status": "Error", "Error": "Could not save the account."}
         ),201
-    session["Email"]=email
-    session["Name"] = name
+    session["Email"]=email.strip().lower()
+    session["Name"] = name.strip()
     return jsonify(
         {"Status": "Success"}
     ), 201

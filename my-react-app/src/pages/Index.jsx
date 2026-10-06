@@ -23,7 +23,10 @@ function createId() {
 }
 
 async function getData() {
-  const response = await fetch("api/details/user-details");
+  const response = await fetch("/api/details/user-details", {
+    credentials: "same-origin",
+    cache: "no-store",
+  });
   const data = await response.json();
 
   if (response.ok) {
@@ -41,7 +44,11 @@ export default function App() {
   const [isDark, setIsDark] = useState(
     () => localStorage.getItem("theme") === "dark",
   );
-  const [userdata, setUserdata] = useState(() => getData());
+  const [userdata, setUserdata] = useState({ name: "guest", email: "..." });
+
+  useEffect(() => {
+    getData().then(setUserdata).catch(console.error);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = isDark ? "dark" : "light";

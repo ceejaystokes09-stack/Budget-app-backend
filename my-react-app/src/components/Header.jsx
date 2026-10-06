@@ -29,14 +29,21 @@ function Header({ isDark, onToggleTheme, user_data }) {
             ></i>
           </button>
           <i className="fa-solid fa-bell" style={{ width: "fit-content" }}></i>
-          <i
-            onClick={() => {
-              navigate("/login");
-            }}
+          <button
+            type="button"
+            className="header-user-button"
+            onClick={() => navigate("/login")}
           >
-            <span className="fa-solid fa-circle-user"></span>
-            {!user_data.name && <span className="cut">Sign in</span>}
-          </i>
+            <span
+              className="fa-solid fa-circle-user header-user-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="header-username">
+              {user_data?.name && user_data.name !== "Guest"
+                ? user_data.name
+                : "Sign in"}
+            </span>
+          </button>
         </div>
       </div>
     </>
