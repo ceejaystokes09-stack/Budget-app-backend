@@ -22,15 +22,13 @@ function createId() {
   );
 }
 
-
-async function getData(){
+async function getData() {
   const response = await fetch("api/details/user-details");
-  const data = await response.json()
+  const data = await response.json();
 
-  if (response.ok){
+  if (response.ok) {
     return data;
-  }
-  else return {}
+  } else return {};
 }
 
 export default function App() {
@@ -43,11 +41,7 @@ export default function App() {
   const [isDark, setIsDark] = useState(
     () => localStorage.getItem("theme") === "dark",
   );
-  const [userdata, setUserdata] = useState({});
-
-  useEffect(() => {
-    setUserdata(getData());
-  },[]);
+  const [userdata, setUserdata] = useState(() => getData());
 
   useEffect(() => {
     document.documentElement.dataset.theme = isDark ? "dark" : "light";
@@ -91,7 +85,11 @@ export default function App() {
 
   return (
     <>
-      <Header isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} user_data={userdata}/>
+      <Header
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+        user_data={userdata}
+      />
       <main className="workspace">
         <section className="workspace-intro">
           <div>
