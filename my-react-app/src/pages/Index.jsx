@@ -58,7 +58,7 @@ export default function App() {
     event.preventDefault();
     const name = groupName.trim();
     if (!name) return;
-
+    //testing
     const newGroup = { id: createId(), name, parentId: parentId || null };
     const updatedGroups = [...groups, newGroup];
     localStorage.setItem("groups", JSON.stringify(updatedGroups));
