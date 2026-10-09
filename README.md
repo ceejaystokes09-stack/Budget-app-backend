@@ -1,36 +1,41 @@
-# Budget app backend
+# 💰 BudgetApp (Full-Stack Edition)
 
-The React app stores groups, tasks, theme preferences, and account information in
-SQLite through the Flask API. Guest data is scoped to the browser's Flask
-session; signed-in data is scoped to the account. Groups and tasks are stored in
-separate relational tables, with tasks referencing their group.
+> A full-stack personal finance application featuring task/expense tracking, custom groups, theme customization, and user authentication backed by a relational SQLite database.
 
-## Run locally
+🌐 **Live Front-End:** [https://ceejaystokes09-stack.github.io/BudgetApp.github.io/](https://ceejaystokes09-stack.github.io/BudgetApp.github.io/)  
+📂 **Repository:** [https://github.com/ceejaystokes09-stack/BudgetApp.github.io/](https://github.com/ceejaystokes09-stack/BudgetApp.github.io/)
 
-Start the backend and frontend in separate terminals from the project directory:
+---
+
+## 🏗️ Architecture & Data Model
+
+The application uses a **React front-end** communicating with a **Flask REST API** to persist user data in an **SQLite** database.
+
+- **Data Scoping:**
+  - **Guest Session:** Scoped directly to the browser's Flask session ID.
+  - **Authenticated Users:** Scoped permanently to the signed-in user account.
+- **Relational Storage:** Groups, tasks, theme preferences, and user accounts are structured in separate relational SQL tables with foreign key constraints.
+- **Automatic Data Migration:** Legacy browser `localStorage` records (groups, tasks, theme settings) are automatically imported into SQL records on app load and cleared from the client.
+- **Schema Safety:** Rebuilds older schema tables automatically while protecting non-empty legacy tables from accidental data loss.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Front-End:** React, JavaScript (ES6+), CSS3
+- **Back-End:** Python, Flask, Flask-Session
+- **Database:** SQLite
+- **Build Tool:** Vite
+
+---
+
+## 🚀 Local Development Setup
+
+To run the application locally, start both the back-end API and front-end server in separate terminal windows.
+
+### 1. Back-End Setup
+From the project root directory, export a secret key and execute the backend runner:
 
 ```bash
 export FLASK_SECRET_KEY="$(openssl rand -hex 32)"
 ./run-backend.sh
-```
-
-```bash
-./run-frontend.sh
-```
-
-Open the `Local` URL printed by Vite in the frontend terminal. Stop either server
-with `Ctrl+C` in its terminal.
-
-SQLite creates or updates the schema in `Festival-data/DATA.db` on startup.
-Set `BUDGET_DATABASE_PATH` to use another database file. Existing groups, tasks,
-and theme settings in browser local storage are imported into the current
-session's SQL records on the next app load, then removed from local storage.
-An empty table from the older groups schema is rebuilt automatically. If that
-legacy table contains records, startup stops rather than discarding them.
-
-Signed-in users can open the Account page from the name in the top navigation
-and log out there or directly from the navigation.
-
-Set `FLASK_SECRET_KEY` to a stable, private value for persistent sessions,
-especially outside local development. The development fallback is generated at
-startup and invalidates sessions when the backend restarts.
