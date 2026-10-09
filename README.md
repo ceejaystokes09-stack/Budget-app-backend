@@ -39,7 +39,7 @@ From the project root directory, export a secret key and execute the backend run
 ```bash
 export FLASK_SECRET_KEY="$(openssl rand -hex 32)"
 ./run-backend.sh
-
+```
 ### 2. Front-End Setup
 From the project root directory, run this code -> this is what you need to open in a browser.
 
