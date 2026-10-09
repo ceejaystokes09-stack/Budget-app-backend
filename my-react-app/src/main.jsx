@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/login.jsx';
 import Index from './pages/Index.jsx';
-// import account when created ; 
+import Account from './pages/Account.jsx';
 
 export default function App() {
   return (
@@ -12,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/account" element={<Account />} />
         {/* <Route path="/practice" element={<Practice />} /> */}
       </Routes>
     </BrowserRouter>

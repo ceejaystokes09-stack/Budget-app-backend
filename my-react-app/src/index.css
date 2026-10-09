@@ -1340,6 +1340,102 @@ Responsive tweaks
     color 160ms ease;
 }
 
+.header-user-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.header-user-icon,
+.header-username {
+  display: block;
+  line-height: 1;
+}
+
+.header-username {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-action-button {
+  padding: 8px 12px;
+  border: 1px solid #d8e4df;
+  border-radius: 6px;
+  color: #18735f;
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.header-action-button:hover {
+  background: rgba(24, 115, 95, 0.1);
+}
+
+.header-error {
+  position: fixed;
+  top: 90px;
+  right: 16px;
+  z-index: 1000;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border: 1px solid #e3a29a;
+  border-radius: 6px;
+  color: #8a2e25;
+  background: #fff4f1;
+  font-size: 14px;
+}
+
+.account-page {
+  max-width: 760px;
+}
+
+.account-card {
+  display: grid;
+  gap: 0;
+  padding: 8px 22px;
+  border: 1px solid #d8e4df;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.account-detail {
+  display: grid;
+  gap: 7px;
+  padding: 18px 0;
+  border-bottom: 1px solid #e5ece8;
+}
+
+.account-detail span {
+  color: #6a7e79;
+  font-size: 13px;
+}
+
+.account-detail strong {
+  color: #17312e;
+  font-weight: 600;
+}
+
+.account-back-link {
+  width: fit-content;
+  margin: 18px 0;
+  color: #18735f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.account-back-link:hover {
+  text-decoration: underline;
+}
+
 .theme-toggle:hover {
   background: rgba(24, 115, 95, 0.12);
   color: #18735f;
@@ -1357,6 +1453,24 @@ Responsive tweaks
 :root[data-theme="dark"] body {
   background: linear-gradient(180deg, #111918 0%, #192523 100%);
   color: #e5efeb;
+}
+
+:root[data-theme="dark"] .account-card {
+  border-color: #344541;
+  background: rgba(22, 32, 30, 0.88);
+}
+
+:root[data-theme="dark"] .account-detail {
+  border-bottom-color: #344541;
+}
+
+:root[data-theme="dark"] .account-detail strong {
+  color: #e5efeb;
+}
+
+:root[data-theme="dark"] .header-action-button {
+  border-color: #49665d;
+  color: #8cd3bb;
 }
 
 :root[data-theme="dark"] .top-nav {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../index.css";
 import "../auth.css";
+import { apiRequest } from "../api.js";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -21,27 +22,16 @@ export default function Login() {
     const email = document.getElementById("auth-email").value;
     const password = document.getElementById("auth-password").value;
     try {
-      const response = await fetch("/api/auth/login", {
+      const data = await apiRequest("/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        if (data.Status === "Success") {
-          navigate("/");
-          return;
-        }
-
-        setError(data.Error);
-      } else {
-        setError(data.Error || `Sign in failed (${response.status}).`);
+      if (data.Status === "Success") {
+        navigate("/");
+        return;
       }
+      setError(data.Error || "Sign in failed.");
     } catch (error) {
       console.error("Error fetching or sending data to BAckedn", error);
       setError("Could not reach the server. Please try again.");
@@ -55,27 +45,16 @@ export default function Login() {
     const email = document.getElementById("auth-email").value;
     const password = document.getElementById("auth-password").value;
     try {
-      const response = await fetch("/api/auth/create-acc", {
+      const data = await apiRequest("/api/auth/create-acc", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
         body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        if (data.Status === "Success") {
-          navigate("/");
-          return;
-        }
-
-        setError(data.Error);
-      } else {
-        setError(data.Error || `Account creation failed (${response.status}).`);
+      if (data.Status === "Success") {
+        navigate("/");
+        return;
       }
+      setError(data.Error || "Account creation failed.");
     } catch (error) {
       console.error("Error fetching or sending data to BAckedn", error);
       setError("Could not reach the server. Please try again.");
