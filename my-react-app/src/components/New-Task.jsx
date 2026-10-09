@@ -1,4 +1,5 @@
 import "../index.css"
+import { useState } from "react"
 import Toggle from "./Slider"
 
 function createId() {
@@ -6,7 +7,9 @@ function createId() {
 }
 
 function NewTaskForm({ groups, selectedGroupId, onSelectGroup, isOpen, onClose, onSave }) {
-    function save(event) {
+    const [error, setError] = useState("")
+
+    async function save(event) {
         event.preventDefault()
         const form = event.currentTarget
         const name = form.elements.taskName.value.trim()
@@ -15,16 +18,21 @@ function NewTaskForm({ groups, selectedGroupId, onSelectGroup, isOpen, onClose, 
 
         if (!name || !description || !groupId) return
 
-        onSave({
-            id: createId(),
-            groupId,
-            name: name.charAt(0).toUpperCase() + name.slice(1),
-            description: description.charAt(0).toUpperCase() + description.slice(1),
-            maxPrice: Number(form.elements.maxPrice.value) || 0,
-            currentPrice: Number(form.elements.currentPrice.value) || 0,
-            isGroup: form.elements.toggle.checked,
-        })
-        form.reset()
+        try {
+            await onSave({
+                id: createId(),
+                groupId,
+                name: name.charAt(0).toUpperCase() + name.slice(1),
+                description: description.charAt(0).toUpperCase() + description.slice(1),
+                maxPrice: Number(form.elements.maxPrice.value) || 0,
+                currentPrice: Number(form.elements.currentPrice.value) || 0,
+                isComplete: form.elements.toggle.checked,
+            })
+            setError("")
+            form.reset()
+        } catch (saveError) {
+            setError(saveError.message || "Could not save task.")
+        }
     }
 
     return (
@@ -35,6 +43,7 @@ function NewTaskForm({ groups, selectedGroupId, onSelectGroup, isOpen, onClose, 
                         <p className="eyebrow">ADD TO YOUR PLAN</p>
                         <h1>New task</h1>
                     </div>
+                    {error && <p role="alert">{error}</p>}
                     <button type="button" className="task-form-close" onClick={onClose} aria-label="Close">×</button>
                 </div>
                 <label className="task-form-field">

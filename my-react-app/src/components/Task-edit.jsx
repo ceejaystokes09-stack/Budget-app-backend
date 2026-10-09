@@ -1,8 +1,9 @@
 import "../index.css"
 import { useEffect, useState } from "react"
 
-function Edit({ task, onClose }) {
+function Edit({ task, onClose, onSave }) {
     const [isVisible, setIsVisible] = useState(false)
+    const [error, setError] = useState("")
 
     useEffect(() => {
         const frame = requestAnimationFrame(() => setIsVisible(true))
@@ -16,7 +17,7 @@ function Edit({ task, onClose }) {
         window.setTimeout(onClose, 200)
     }
 
-    function Save(){
+    async function Save(){
         const updatedTask = {
             ...task,
             name: document.querySelector(".Task-edit #new-name").value.trim(),
@@ -25,14 +26,13 @@ function Edit({ task, onClose }) {
             currentPrice: Number(document.querySelector(".Task-edit #new-Current").value) || 0,
         }
 
-        const savedTasks = JSON.parse(localStorage.getItem("tasks") || "[]")
-        const updatedTasks = savedTasks.map((savedTask) => (
-            savedTask.id === task.id ? updatedTask : savedTask
-        ))
-
-        localStorage.setItem("tasks", JSON.stringify(updatedTasks))
-        window.dispatchEvent(new Event("tasksUpdated"))
-        handleClose()
+        try {
+            await onSave(updatedTask)
+            setError("")
+            handleClose()
+        } catch (saveError) {
+            setError(saveError.message || "Could not update task.")
+        }
     }
 
     return (
@@ -44,6 +44,7 @@ function Edit({ task, onClose }) {
                     <button type="button" className="Task-edit__close" onClick={handleClose}>✕</button>
                     
                 </div>
+                {error && <p role="alert">{error}</p>}
 
                 <label>
                     Name

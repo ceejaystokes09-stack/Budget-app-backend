@@ -2,7 +2,7 @@ import "../index.css"
 import { useState } from "react"
 import Task from "./Task"
 
-function Group({ group, groups, tasks, onAddTask }) {
+function Group({ group, groups, tasks, onAddTask, onUpdateTask }) {
     const [isOpen, setIsOpen] = useState(true)
     const children = groups.filter((item) => item.parentId === group.id)
     const groupTasks = tasks.filter((task) => task.groupId === group.id)
@@ -43,7 +43,8 @@ function Group({ group, groups, tasks, onAddTask }) {
                                     Desc={task.description}
                                     Max={task.maxPrice}
                                     Current={task.currentPrice}
-                                    Status={task.isGroup}
+                                    Status={task.isComplete}
+                                    onUpdate={onUpdateTask}
                                 />
                             ))}
                         </div>
@@ -54,7 +55,7 @@ function Group({ group, groups, tasks, onAddTask }) {
                         <div className="nested-groups">
                             <p className="nested-groups-label">SUBGROUPS <span>{children.length}</span></p>
                             {children.map((child) => (
-                                <Group key={child.id} group={child} groups={groups} tasks={tasks} onAddTask={onAddTask} />
+                                <Group key={child.id} group={child} groups={groups} tasks={tasks} onAddTask={onAddTask} onUpdateTask={onUpdateTask} />
                             ))}
                         </div>
                     )}

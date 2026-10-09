@@ -7,7 +7,7 @@ function Toggle(){
     return (
         <>
             <div style={{width: "max-content"}} className="Toggle-Focus">
-                <input type="checkbox" id="toggle" className="toggle-checkbox" checked={isChecked} onChange={(event) => setIsChecked(event.target.checked)} />
+                <input type="checkbox" id="toggle" name="toggle" className="toggle-checkbox" checked={isChecked} onChange={(event) => setIsChecked(event.target.checked)} />
                 <label htmlFor="toggle" className="toggle-label">
                     <span className="toggle-inner-button"></span>
                 </label>

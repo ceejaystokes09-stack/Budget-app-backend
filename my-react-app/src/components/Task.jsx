@@ -3,7 +3,7 @@ import { useState } from "react"
 import Progress from "./Progress"
 import Edit from "./Task-edit"
 
-function Task({ Id, Name, Desc, Current, Max, Status }) {
+function Task({ Id, Name, Desc, Current, Max, Status, onUpdate }) {
     const [isEditing, setIsEditing] = useState(false)
     const accentColor = Status ? "#5eead4" : "#7c3aed"
 
@@ -25,8 +25,9 @@ function Task({ Id, Name, Desc, Current, Max, Status }) {
 
             {isEditing && (
                 <Edit
-                    task={{ id: Id, name: Name, description: Desc, maxPrice: Max, currentPrice: Current, isGroup: Status }}
+                    task={{ id: Id, name: Name, description: Desc, maxPrice: Max, currentPrice: Current, isComplete: Status }}
                     onClose={() => setIsEditing(false)}
+                    onSave={onUpdate}
                 />
             )}
         </>
